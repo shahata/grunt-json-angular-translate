@@ -66,6 +66,12 @@ module.exports = function (grunt) {
       src = multiline(function(){/*
 'use strict';
 
+try {
+  angular.module('wixTranslations');
+} catch (e) {
+  angular.module('wixTranslations', ['pascalprecht.translate']);
+}
+
 angular.module('{{moduleName}}').config(function ($translateProvider) {
   $translateProvider.translations('{{language}}', {{translations}});
 });
