@@ -37,7 +37,11 @@ function unflatten(json) {
 module.exports = function (grunt) {
   grunt.registerMultiTask('jsonAngularTranslate', 'The best Grunt plugin ever.', function () {
     var extractLanguage;
-    var options = this.options({moduleName: 'translations', extractLanguage: /..(?=\.[^.]*$)/});
+    var options = this.options({
+      moduleName: 'translations',
+      extractLanguage: /..(?=\.[^.]*$)/,
+      hasPreferredLanguage: true
+    });
 
     if (typeof(options.extractLanguage) === 'function') {
       extractLanguage = options.extractLanguage;
@@ -68,7 +72,7 @@ module.exports = function (grunt) {
         return unflatten(JSON.parse(grunt.file.read(filepath)));
       }).reduce(extend, {});
 
-      src = multiline(function(){/*
+      src = multiline(options.hasPreferredLanguage ? function(){/*
 'use strict';
 
 try {
@@ -80,6 +84,18 @@ try {
 angular.module('{{moduleName}}').config(function ($translateProvider) {
   $translateProvider.translations('{{language}}', {{translations}});
   $translateProvider.preferredLanguage('{{language}}');
+});
+      */} : function(){/*
+'use strict';
+
+try {
+  angular.module('{{moduleName}}');
+} catch (e) {
+  angular.module('{{moduleName}}', ['pascalprecht.translate']);
+}
+
+angular.module('{{moduleName}}').config(function ($translateProvider) {
+  $translateProvider.translations({{translations}});
 });
       */}).replace(/{{language}}/g, language).replace(/{{moduleName}}/g, options.moduleName)
           .replace('{{translations}}', toSingleQuotes(JSON.stringify(src)));

@@ -44,5 +44,11 @@ exports.jsonAngularTranslate = {
     var expected = grunt.file.read('test/expected/messages_ru.js').replace(/'ru'/g, '\'on\'');
     test.equal(actual, expected, 'should be able to override language matching with my own function');
     test.done();
+  },
+  no_prefer_language: function (test) {
+    var actual = grunt.file.read('tmp/test4/messages_ru.js');
+    var expected = grunt.file.read('test/expected/messages_ru.legacy.js');
+    test.equal(actual, expected, 'should be able to override language matching with my own function');
+    test.done();
   }
 };

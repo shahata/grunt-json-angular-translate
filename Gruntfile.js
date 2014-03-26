@@ -72,6 +72,19 @@ module.exports = function (grunt) {
           dest: 'tmp/test3',
           ext: '.js'
         }]
+      },
+      no_prefer_language: {
+        options: {
+          moduleName: 'wixTranslations',
+          hasPreferredLanguage: false
+        },
+        files: [{
+          expand: true,
+          cwd: 'test/fixtures',
+          src: '*.json',
+          dest: 'tmp/test4',
+          ext: '.js'
+        }]
       }
     },
 
