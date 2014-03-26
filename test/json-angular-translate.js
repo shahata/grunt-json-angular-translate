@@ -45,5 +45,4 @@ exports.jsonAngularTranslate = {
     test.equal(actual, expected, 'should be able to override language matching with my own function');
     test.done();
   }
-  //test for inconsistent language
 };

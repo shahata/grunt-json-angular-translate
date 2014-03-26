@@ -37,14 +37,14 @@ function unflatten(json) {
 module.exports = function (grunt) {
   grunt.registerMultiTask('jsonAngularTranslate', 'The best Grunt plugin ever.', function () {
     var extractLanguage;
-    var options = this.options({moduleName: 'translations', extractLanguage: '..(?=\\.[^.]*$)'});
+    var options = this.options({moduleName: 'translations', extractLanguage: /..(?=\.[^.]*$)/});
 
-    if (typeof(options.extractLanguage) === 'string') {
-      extractLanguage = function (filepath) {
-        return filepath.match(new RegExp(options.extractLanguage))[0];
-      };
-    } else if (typeof(options.extractLanguage) === 'function') {
+    if (typeof(options.extractLanguage) === 'function') {
       extractLanguage = options.extractLanguage;
+    } else {
+      extractLanguage = function (filepath) {
+        return filepath.match(options.extractLanguage)[0];
+      };
     }
 
     this.files.forEach(function (file) {

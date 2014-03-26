@@ -27,7 +27,7 @@ grunt.initConfig({
   jsonAngularTranslate: {
     options: {
       moduleName: 'translations',
-      extractLanguage: '..(?=\\.[^.]*$)'
+      extractLanguage: /..(?=\.[^.]*$)/
     },
     your_target: {
       // Target-specific file lists and/or options go here.
@@ -45,10 +45,10 @@ Default value: `translations`
 The module name to use in the `angular.module` calls.
 
 #### options.extractLanguage
-Type: `String|Function`
-Default value: `..(?=\\.[^.]*$)` (last two characters before the last dot)
+Type: `RegExp|Function`
+Default value: `/..(?=\.[^.]*$)/` (last two characters before the last dot)
 
-A regular expression string or a function that returns the processed file's language according to its file path.
+A regular expression or a function that returns the processed file's language according to its file path.
 
 ### Usage Examples
 

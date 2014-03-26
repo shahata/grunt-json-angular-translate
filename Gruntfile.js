@@ -48,7 +48,7 @@ module.exports = function (grunt) {
       pattern_language: {
         options: {
           moduleName: 'wixTranslations',
-          extractLanguage: '^..'
+          extractLanguage: /^../
         },
         files: [{
           expand: true,
