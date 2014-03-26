@@ -77,15 +77,15 @@ module.exports = function (grunt) {
 'use strict';
 
 try {
-  angular.module('wixTranslations');
+  angular.module('{{moduleName}}');
 } catch (e) {
-  angular.module('wixTranslations', ['pascalprecht.translate']);
+  angular.module('{{moduleName}}', ['pascalprecht.translate']);
 }
 
 angular.module('{{moduleName}}').config(function ($translateProvider) {
   $translateProvider.translations('{{language}}', {{translations}});
 });
-      */}).replace('{{language}}', language).replace('{{moduleName}}', options.moduleName)
+      */}).replace(/{{language}}/g, language).replace(/{{moduleName}}/g, options.moduleName)
           .replace('{{translations}}', toSingleQuotes(JSON.stringify(src)));
 
       src = jb(src, {'indent_size': 2, 'jslint_happy': true}) + '\n';
