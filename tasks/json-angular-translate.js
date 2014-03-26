@@ -37,7 +37,7 @@ function unflatten(json) {
 module.exports = function (grunt) {
   grunt.registerMultiTask('jsonAngularTranslate', 'The best Grunt plugin ever.', function () {
     var extractLanguage;
-    var options = this.options({});
+    var options = this.options({moduleName: 'translations', extractLanguage: '..(?=\\.[^.]*$)'});
 
     if (typeof(options.extractLanguage) === 'string') {
       extractLanguage = function (filepath) {
@@ -45,12 +45,7 @@ module.exports = function (grunt) {
       };
     } else if (typeof(options.extractLanguage) === 'function') {
       extractLanguage = options.extractLanguage;
-    } else {
-      extractLanguage = function (filepath) {
-        return filepath.match(/..(?=\.[^.]*$)/)[0];
-      };
     }
-
 
     this.files.forEach(function (file) {
       // Concat specified files.
@@ -84,6 +79,7 @@ try {
 
 angular.module('{{moduleName}}').config(function ($translateProvider) {
   $translateProvider.translations('{{language}}', {{translations}});
+  $translateProvider.preferredLanguage('{{language}}');
 });
       */}).replace(/{{language}}/g, language).replace(/{{moduleName}}/g, options.moduleName)
           .replace('{{translations}}', toSingleQuotes(JSON.stringify(src)));

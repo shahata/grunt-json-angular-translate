@@ -1,7 +1,7 @@
 {
   "name": "grunt-json-angular-translate",
-  "version": "0.1.3",
-  "description": "The best Grunt plugin ever.",
+  "version": "0.1.4",
+  "description": "Converts json files to angular translate config javascript files.",
   "repository": "git@github.com:shahata/grunt-json-angular-translate.git",
   "bugs": "git@github.com:shahata/grunt-json-angular-translate.gitissues",
   "author": {

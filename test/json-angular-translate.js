@@ -28,30 +28,21 @@ exports.jsonAngularTranslate = {
     done();
   },
   default_options: function (test) {
-    test.expect(1);
-
     var actual = grunt.file.read('tmp/test1/messages_ru.js');
     var expected = grunt.file.read('test/expected/messages_ru.js');
     test.equal(actual, expected, 'should use last two letters before last dot as language by default.');
-
     test.done();
   },
   pattern_language: function (test) {
-    test.expect(1);
-
     var actual = grunt.file.read('tmp/test2/messages_ru.js');
-    var expected = grunt.file.read('test/expected/messages_ru.js').replace('\'ru\'', '\'te\'');
+    var expected = grunt.file.read('test/expected/messages_ru.js').replace(/'ru'/g, '\'te\'');
     test.equal(actual, expected, 'should be able to override language matching with my own pattern');
-
     test.done();
   },
   function_language: function (test) {
-    test.expect(1);
-
     var actual = grunt.file.read('tmp/test3/messages_ru.js');
-    var expected = grunt.file.read('test/expected/messages_ru.js').replace('\'ru\'', '\'on\'');
+    var expected = grunt.file.read('test/expected/messages_ru.js').replace(/'ru'/g, '\'on\'');
     test.equal(actual, expected, 'should be able to override language matching with my own function');
-
     test.done();
   }
   //test for inconsistent language

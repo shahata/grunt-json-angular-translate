@@ -1,6 +1,6 @@
-# grunt-json-angular-translate
+# grunt-json-angular-translate [![Build Status](https://travis-ci.org/shahata/grunt-json-angular-translate.svg?branch=master)](https://travis-ci.org/shahata/grunt-json-angular-translate)
 
-> The best Grunt plugin ever.
+> Converts json files to angular translate config javascript files.
 
 ## Getting Started
 This plugin requires Grunt.
@@ -26,7 +26,8 @@ In your project's Gruntfile, add a section named `jsonAngularTranslate` to the d
 grunt.initConfig({
   jsonAngularTranslate: {
     options: {
-      // Task-specific options go here.
+      moduleName: 'translations',
+      extractLanguage: '..(?=\\.[^.]*$)'
     },
     your_target: {
       // Target-specific file lists and/or options go here.
@@ -37,56 +38,90 @@ grunt.initConfig({
 
 ### Options
 
-#### options.separator
+#### options.moduleName
 Type: `String`
-Default value: `',  '`
+Default value: `translations`
 
-A string value that is used to do something with whatever.
+The module name to use in the `angular.module` calls.
 
-#### options.punctuation
-Type: `String`
-Default value: `'.'`
+#### options.extractLanguage
+Type: `String|Function`
+Default value: `..(?=\\.[^.]*$)` (last two characters before the last dot)
 
-A string value that is used to do something else with whatever else.
+A regular expression string or a function that returns the processed file's language according to its file path.
 
 ### Usage Examples
 
 #### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
+In this example, we convert all .json files in `app/scripts/locale` to angular-translate config files in `.tmp/scripts/locale`.
 
 ```js
 grunt.initConfig({
   jsonAngularTranslate: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
+    jobName: {
+      options: {},
+      files: [{
+        expand: true,
+        cwd: 'app/scripts/locale',
+        src: '*.json',
+        dest: '.tmp/scripts/locale',
+        ext: '.js'
+      }]
+    }
   },
 })
 ```
 
+So `app/scripts/locale/messages_ru.js` with contents `{"key1": "value1", "key2.subKey1": "value2", "key2.subKey2": "value3"}` will be converted to `.tmp/scripts/locale/messages_ru.js` with contents:
+
+```js
+'use strict';
+
+try {
+  angular.module('translations');
+} catch (e) {
+  angular.module('translations', ['pascalprecht.translate']);
+}
+
+angular.module('translations').config(function ($translateProvider) {
+  $translateProvider.translations('ru', {
+    'key1': 'value1',
+    'key2': {
+      'subKey1': 'value2',
+      'subKey2': 'value3'
+    }
+  });
+  $translateProvider.preferredLanguage('ru');
+});
+```
+
 #### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
+In this example, we convert all .json files in `app/scripts/locale` to angular-translate config files in `.tmp/scripts/locale` with custom `moduleName`. Thanks to the custom `extractLanguage` file's language code will be extracted from the first two characters in the file name, so filepath `app/scripts/locale/he_messages.json` will get language code `he`.
 
 ```js
 grunt.initConfig({
   jsonAngularTranslate: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
+    jobName: {
+      options: {
+        moduleName: 'myAppTranslations',
+        extractLanguage: function (filepath) {
+          return filepath.split('/').reverse()[0].slice(2);
+        }
+      },
+      files: [{
+        expand: true,
+        cwd: 'app/scripts/locale',
+        src: '*.json',
+        dest: '.tmp/scripts/locale',
+        ext: '.js'
+      }]
+    }
   },
 })
 ```
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
-
-## Release History
-_(Nothing yet)_
 
 ## License
 Copyright (c) 2014 Shahar Talmi. Licensed under the MIT license.

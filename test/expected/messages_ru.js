@@ -14,4 +14,5 @@ angular.module('wixTranslations').config(function ($translateProvider) {
       'x': 'd'
     }
   });
+  $translateProvider.preferredLanguage('ru');
 });
