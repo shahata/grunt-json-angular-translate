@@ -1,6 +1,6 @@
 {
   "name": "grunt-json-angular-translate",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "The best Grunt plugin ever.",
   "repository": "git@github.com:shahata/grunt-json-angular-translate.git",
   "bugs": "git@github.com:shahata/grunt-json-angular-translate.gitissues",

@@ -54,4 +54,5 @@ exports.jsonAngularTranslate = {
 
     test.done();
   }
+  //test for inconsistent language
 };

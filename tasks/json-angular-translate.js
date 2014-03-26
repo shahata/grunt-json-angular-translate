@@ -14,9 +14,19 @@ var jb = require('js-beautify')[jbfunc];
 var toSingleQuotes = require('to-single-quotes');
 var extend = require('util')._extend;
 
+function merge(base, add) {
+  var key = Object.keys(add)[0];
+  if (typeof(add[key]) === 'object' && base[key]) {
+    merge(base[key], add[key]);
+  } else {
+    base[key] = add[key];
+  }
+  return base;
+}
+
 function unflatten(json) {
   return Object.keys(json).reduceRight(function(prev, key) {
-    return extend(prev, key.split('.').reduceRight(function (prev, curr) {
+    return merge(prev, key.split('.').reduceRight(function (prev, curr) {
       var obj = {};
       obj[curr] = prev;
       return obj;

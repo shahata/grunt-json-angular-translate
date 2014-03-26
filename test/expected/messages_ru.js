@@ -10,6 +10,7 @@ angular.module('wixTranslations').config(function ($translateProvider) {
   $translateProvider.translations('ru', {
     'a': 'b',
     'c': {
+      'y': 'e',
       'x': 'd'
     }
   });
