@@ -72,7 +72,17 @@ grunt.initConfig({
 })
 ```
 
-So `app/scripts/locale/messages_ru.js` with contents `{"key1": "value1", "key2.subKey1": "value2", "key2.subKey2": "value3"}` will be converted to `.tmp/scripts/locale/messages_ru.js` with contents:
+So `app/scripts/locale/messages_ru.js` with contents:
+
+```js
+{
+  "key1": "value1",
+  "key2.subKey1": "value2",
+  "key2.subKey2": "value3"
+}
+```
+
+will be converted to `.tmp/scripts/locale/messages_ru.js` with contents:
 
 ```js
 'use strict';
