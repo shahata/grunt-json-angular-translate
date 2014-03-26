@@ -1,6 +1,6 @@
 # grunt-json-angular-translate [![Build Status](https://travis-ci.org/shahata/grunt-json-angular-translate.svg?branch=master)](https://travis-ci.org/shahata/grunt-json-angular-translate)
 
-> Converts json files to angular translate config javascript files.
+> Converts json files to [angular-translate](https://github.com/angular-translate/angular-translate) config javascript files.
 
 ## Getting Started
 This plugin requires Grunt.
