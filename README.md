@@ -82,7 +82,7 @@ So `app/scripts/locale/messages_ru.js` with contents:
 }
 ```
 
-will be converted to `.tmp/scripts/locale/messages_ru.js` with contents:
+Will be converted to `.tmp/scripts/locale/messages_ru.js` with contents:
 
 ```js
 'use strict';
