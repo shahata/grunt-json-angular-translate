@@ -11,7 +11,7 @@
 var multiline = require('multiline');
 var jbfunc = 'js_beautify';
 var jb = require('js-beautify')[jbfunc];
-var toSingleQuotes = require('to-single-quotes');
+var toSingleQuotes = require('to-single-quotes-shahata');
 var extend = require('util')._extend;
 
 function merge(base, add) {
