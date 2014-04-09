@@ -1,6 +1,6 @@
 {
   "name": "grunt-json-angular-translate",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "Converts json files to angular translate config javascript files.",
   "repository": "git@github.com:shahata/grunt-json-angular-translate.git",
   "bugs": "git@github.com:shahata/grunt-json-angular-translate.gitissues",
@@ -34,6 +34,6 @@
   "dependencies": {
     "multiline": "~0.2.0",
     "js-beautify": "~1.4.2",
-    "to-single-quotes": "~0.3.0"
+    "to-single-quotes-shahata": "~0.3.0"
   }
 }
