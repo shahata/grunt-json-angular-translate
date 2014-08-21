@@ -59,6 +59,37 @@ Default value: `true`
 
 Whether to set the language and preferred language in config file. Relevant only in angular-translate `1.*`.
 
+#### options.createNestedKeys
+Type: `Boolean`
+Default value: `true`
+
+Whether to create a nested output from dot separated keys.
+
+##### Source json
+```
+{
+  "My.First.Key": "..."
+}
+```
+##### Outputs
+```
+{
+  'My': {
+    'First': {
+      'Key': '...'
+    }
+  }
+}
+```
+Set this option to false if you use your source language string as the key.
+
+##### createNestedKeys: false, Outputs
+```
+{
+  'My.First.Key': '...'
+}
+```
+
 ### Usage Examples
 
 #### Default Options

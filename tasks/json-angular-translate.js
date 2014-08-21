@@ -34,13 +34,21 @@ function unflatten(json) {
   }, {});
 }
 
+function reverse(json) {
+  return Object.keys(json).reduceRight(function (newObject, value) {
+    newObject[value] = json[value];
+    return newObject;
+  }, {});
+}
+
 module.exports = function (grunt) {
   grunt.registerMultiTask('jsonAngularTranslate', 'The best Grunt plugin ever.', function () {
     var extractLanguage;
     var options = this.options({
       moduleName: 'translations',
       extractLanguage: /..(?=\.[^.]*$)/,
-      hasPreferredLanguage: true
+      hasPreferredLanguage: true,
+      createNestedKeys: true
     });
 
     if (typeof(options.extractLanguage) === 'function') {
@@ -53,7 +61,8 @@ module.exports = function (grunt) {
 
     this.files.forEach(function (file) {
       // Concat specified files.
-      var language;
+      var language,
+          keys;
       var src = file.src.filter(function (filepath) {
         // Warn on and remove invalid source files (if nonull was set).
         if (!grunt.file.exists(filepath)) {
@@ -69,7 +78,9 @@ module.exports = function (grunt) {
           throw 'inconsistent language: ' + filepath + ' (' + currLanguage + ' !== ' + language + ')';
         }
         language = currLanguage;
-        return unflatten(JSON.parse(grunt.file.read(filepath)));
+
+        var processor = (options.createNestedKeys ? unflatten : reverse);
+        return processor(JSON.parse(grunt.file.read(filepath)));
       }).reduce(extend, {});
 
       src = grunt.template.process(multiline(options.hasPreferredLanguage ? function(){/*
