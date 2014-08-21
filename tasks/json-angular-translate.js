@@ -40,7 +40,8 @@ module.exports = function (grunt) {
     var options = this.options({
       moduleName: 'translations',
       extractLanguage: /..(?=\.[^.]*$)/,
-      hasPreferredLanguage: true
+      hasPreferredLanguage: true,
+      createNestedKeys: true
     });
 
     if (typeof(options.extractLanguage) === 'function') {
@@ -53,7 +54,8 @@ module.exports = function (grunt) {
 
     this.files.forEach(function (file) {
       // Concat specified files.
-      var language;
+      var language,
+          keys;
       var src = file.src.filter(function (filepath) {
         // Warn on and remove invalid source files (if nonull was set).
         if (!grunt.file.exists(filepath)) {
@@ -69,7 +71,12 @@ module.exports = function (grunt) {
           throw 'inconsistent language: ' + filepath + ' (' + currLanguage + ' !== ' + language + ')';
         }
         language = currLanguage;
-        return unflatten(JSON.parse(grunt.file.read(filepath)));
+
+        keys = JSON.parse(grunt.file.read(filepath));
+        if (options.createNestedKeys === true) {
+          keys = unflatten(keys);
+        }
+        return keys;
       }).reduce(extend, {});
 
       src = grunt.template.process(multiline(options.hasPreferredLanguage ? function(){/*
