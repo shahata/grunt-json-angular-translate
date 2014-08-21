@@ -50,5 +50,11 @@ exports.jsonAngularTranslate = {
     var expected = grunt.file.read('test/expected/messages_ru.legacy.js');
     test.equal(actual, expected, 'should be able to override language matching with my own function');
     test.done();
+  },
+  flat_option: function (test) {
+    var actual = grunt.file.read('tmp/test5/messages_ru.js');
+    var expected = grunt.file.read('test/expected/messages_ru.flat.js');
+    test.equal(actual, expected, 'should not expand to nested objects when there are periods in the keys');
+    test.done();
   }
 };

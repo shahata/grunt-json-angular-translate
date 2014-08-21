@@ -85,6 +85,19 @@ module.exports = function (grunt) {
           dest: 'tmp/test4',
           ext: '.js'
         }]
+      },
+      flat_option: {
+        options: {
+          moduleName: 'wixTranslations',
+          createNestedKeys: false
+        },
+        files: [{
+          expand: true,
+          cwd: 'test/fixtures',
+          src: '*.json',
+          dest: 'tmp/test5',
+          ext: '.js'
+        }]
       }
     },
 
