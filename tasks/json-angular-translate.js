@@ -34,6 +34,16 @@ function unflatten(json) {
   }, {});
 }
 
+function reverse(json) {
+  var newObject = {},
+      reverseKeys = Object.keys(json);
+  reverseKeys.reverse();
+  for(var i = 0; i < reverseKeys.length; i++){
+    newObject[reverseKeys[i]] = json[reverseKeys[i]];
+  }
+  return newObject;
+}
+
 module.exports = function (grunt) {
   grunt.registerMultiTask('jsonAngularTranslate', 'The best Grunt plugin ever.', function () {
     var extractLanguage;
@@ -75,6 +85,8 @@ module.exports = function (grunt) {
         keys = JSON.parse(grunt.file.read(filepath));
         if (options.createNestedKeys === true) {
           keys = unflatten(keys);
+        } else {
+          keys = reverse(keys);
         }
         return keys;
       }).reduce(extend, {});
