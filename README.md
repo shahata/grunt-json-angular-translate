@@ -64,11 +64,14 @@ Type: `Boolean`
 Default value: `true`
 
 Whether to create a nested output from dot separated keys.
-source file
+
+##### Source json
 ```
-msgid "My.First.Key"
+{
+  "My.First.Key": "..."
+}
 ```
-outputs
+##### Outputs
 ```
 {
   'My': {
@@ -79,6 +82,13 @@ outputs
 }
 ```
 Set this option to false if you use your source language string as the key.
+
+##### createNestedKeys: false, Outputs
+```
+{
+  'My.First.Key': '...'
+}
+```
 
 ### Usage Examples
 
