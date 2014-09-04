@@ -35,13 +35,10 @@ function unflatten(json) {
 }
 
 function reverse(json) {
-  var newObject = {},
-      reverseKeys = Object.keys(json);
-  reverseKeys.reverse();
-  for(var i = 0; i < reverseKeys.length; i++){
-    newObject[reverseKeys[i]] = json[reverseKeys[i]];
-  }
-  return newObject;
+  return Object.keys(json).reduceRight(function (newObject, value) {
+    newObject[value] = json[value];
+    return newObject;
+  }, {});
 }
 
 module.exports = function (grunt) {
@@ -82,13 +79,8 @@ module.exports = function (grunt) {
         }
         language = currLanguage;
 
-        keys = JSON.parse(grunt.file.read(filepath));
-        if (options.createNestedKeys === true) {
-          keys = unflatten(keys);
-        } else {
-          keys = reverse(keys);
-        }
-        return keys;
+        var processor = (options.createNestedKeys ? unflatten : reverse);
+        return processor(JSON.parse(grunt.file.read(filepath)));
       }).reduce(extend, {});
 
       src = grunt.template.process(multiline(options.hasPreferredLanguage ? function(){/*
