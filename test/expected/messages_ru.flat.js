@@ -7,10 +7,12 @@ try {
 }
 
 angular.module('wixTranslations').config(function ($translateProvider) {
-  $translateProvider.translations('ru', {
+  var translations = {
     'a': 'b',
     'c.x': 'd',
     'c.y': 'e'
-  });
+  };
+  $translateProvider.translations('ru', translations);
+  $translateProvider.translations(translations);
   $translateProvider.preferredLanguage('ru');
 });

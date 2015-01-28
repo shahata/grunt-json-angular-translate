@@ -93,7 +93,9 @@ try {
 }
 
 angular.module('<%= moduleName %>').config(function ($translateProvider) {
-  $translateProvider.translations('<%= language %>', <%= translations %>);
+  var translations = <%= translations %>;
+  $translateProvider.translations('<%= language %>', translations);
+  $translateProvider.translations(translations);
   $translateProvider.preferredLanguage('<%= language %>');
 });
       */} : function(){/*
@@ -106,7 +108,9 @@ try {
 }
 
 angular.module('<%= moduleName %>').config(function ($translateProvider) {
-  $translateProvider.translations(<%= translations %>);
+  var translations = <%= translations %>;
+  $translateProvider.translations('<%= language %>', translations);
+  $translateProvider.translations(translations);
 });
       */}), {data: {language: language, moduleName: options.moduleName, translations: toSingleQuotes(JSON.stringify(src))}});
 

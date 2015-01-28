@@ -7,11 +7,13 @@ try {
 }
 
 angular.module('wixTranslations').config(function ($translateProvider) {
-  $translateProvider.translations({
+  var translations = {
     'a': 'b',
     'c': {
       'y': 'e',
       'x': 'd'
     }
-  });
+  };
+  $translateProvider.translations('ru', translations);
+  $translateProvider.translations(translations);
 });
