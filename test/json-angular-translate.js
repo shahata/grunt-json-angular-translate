@@ -56,5 +56,11 @@ exports.jsonAngularTranslate = {
     var expected = grunt.file.read('test/expected/messages_ru.flat.js');
     test.equal(actual, expected, 'should not expand to nested objects when there are periods in the keys');
     test.done();
+  },
+  validate_output_files: function (test) {
+    var actual = grunt.file.read('tmp/test6/messages_ru.js');
+    var expected = grunt.file.read('test/expected/messages_ru.legacy.js');
+    test.equal(actual, expected, 'should run jshint validation on the output files');
+    test.done();
   }
 };

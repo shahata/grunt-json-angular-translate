@@ -41,6 +41,19 @@ function reverse(json) {
   }, {});
 }
 
+function addJshintTarget(grunt, srcArray, jshintrcPath) {
+  var jshintConf = grunt.config('jshint');
+  jshintConf.jsonAngularTranslate = {
+    options: {
+      jshintrc: jshintrcPath
+    },
+    files: {
+      src: srcArray
+    }
+  };
+  grunt.config('jshint', jshintConf);
+}
+
 module.exports = function (grunt) {
   grunt.registerMultiTask('jsonAngularTranslate', 'The best Grunt plugin ever.', function () {
     var extractLanguage;
@@ -48,7 +61,9 @@ module.exports = function (grunt) {
       moduleName: 'translations',
       extractLanguage: /..(?=\.[^.]*$)/,
       hasPreferredLanguage: true,
-      createNestedKeys: true
+      createNestedKeys: true,
+      jshintValidateOutputFiles: false,
+      jshintrcPath: '.jshintrc'
     });
 
     if (typeof(options.extractLanguage) === 'function') {
@@ -58,6 +73,8 @@ module.exports = function (grunt) {
         return filepath.match(options.extractLanguage)[0];
       };
     }
+
+    var outputFiles = [];
 
     this.files.forEach(function (file) {
       // Concat specified files.
@@ -117,9 +134,15 @@ angular.module('<%= moduleName %>').config(function ($translateProvider) {
       src = jb(src, {'indent_size': 2, 'jslint_happy': true}) + '\n';
 
       grunt.file.write(file.dest, src);
+      outputFiles.push(file.dest);
 
       grunt.log.writeln('File "' + file.dest + '" created.');
     });
+
+    if (options.jshintValidateOutputFiles) {
+      addJshintTarget(grunt, outputFiles, options.jshintrcPath);
+      grunt.task.run('jshint:jsonAngularTranslate');
+    }
   });
 
 };
