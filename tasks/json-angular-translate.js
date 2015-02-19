@@ -92,12 +92,12 @@ try {
   angular.module('<%= moduleName %>', ['pascalprecht.translate']);
 }
 
-angular.module('<%= moduleName %>').config(function ($translateProvider) {
+angular.module('<%= moduleName %>').config(['$translateProvider', function ($translateProvider) {
   var translations = <%= translations %>;
   $translateProvider.translations('<%= language %>', translations);
   $translateProvider.translations(translations);
   $translateProvider.preferredLanguage('<%= language %>');
-});
+}]);
       */} : function(){/*
 'use strict';
 
@@ -107,11 +107,11 @@ try {
   angular.module('<%= moduleName %>', ['pascalprecht.translate']);
 }
 
-angular.module('<%= moduleName %>').config(function ($translateProvider) {
+angular.module('<%= moduleName %>').config(['$translateProvider', function ($translateProvider) {
   var translations = <%= translations %>;
   $translateProvider.translations('<%= language %>', translations);
   $translateProvider.translations(translations);
-});
+}]);
       */}), {data: {language: language, moduleName: options.moduleName, translations: toSingleQuotes(JSON.stringify(src))}});
 
       src = jb(src, {'indent_size': 2, 'jslint_happy': true}) + '\n';

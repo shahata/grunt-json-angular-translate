@@ -6,15 +6,17 @@ try {
   angular.module('wixTranslations', ['pascalprecht.translate']);
 }
 
-angular.module('wixTranslations').config(function ($translateProvider) {
-  var translations = {
-    'a': 'b',
-    'c': {
-      'y': 'e',
-      'x': 'd'
-    }
-  };
-  $translateProvider.translations('ru', translations);
-  $translateProvider.translations(translations);
-  $translateProvider.preferredLanguage('ru');
-});
+angular.module('wixTranslations').config(['$translateProvider',
+  function ($translateProvider) {
+    var translations = {
+      'a': 'b',
+      'c': {
+        'y': 'e',
+        'x': 'd'
+      }
+    };
+    $translateProvider.translations('ru', translations);
+    $translateProvider.translations(translations);
+    $translateProvider.preferredLanguage('ru');
+  }
+]);
