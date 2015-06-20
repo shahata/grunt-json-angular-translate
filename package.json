@@ -38,7 +38,6 @@
   "dependencies": {
     "js-beautify": "~1.4.2",
     "multiline": "~0.2.0",
-    "tiny-lr": "^0.1.6",
     "to-single-quotes-shahata": "~0.3.0"
   }
 }
