@@ -32,6 +32,9 @@
   "scripts": {
     "test": "grunt test"
   },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "dependencies": {
     "js-beautify": "~1.4.2",
     "multiline": "~0.2.0",
