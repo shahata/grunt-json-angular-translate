@@ -93,12 +93,14 @@ module.exports = function (grunt) {
          }
 
          angular.module('<%= moduleName %>').config(['$translateProvider', function ($translateProvider) {
-         var translations = <%= translations %>;
-         $translateProvider.translations('<%= language %>', translations);
-         $translateProvider.translations(translations);
-         if ($translateProvider.preferredLanguage){
-         $translateProvider.preferredLanguage('<%= language %>');
-         }
+            var translations = <%= translations %>;
+            $translateProvider.translations('<%= language %>', translations);
+            $translateProvider.translations(translations);
+
+            if ($translateProvider.preferredLanguage){
+                $translateProvider.preferredLanguage('<%= language %>');
+            }
+
          }]).value('preferredLanguage','<%= language %>');
          */})
         , {data: {language: language, moduleName: options.moduleName, translations: toSingleQuotes(JSON.stringify(src))}});
