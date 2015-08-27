@@ -83,7 +83,7 @@ module.exports = function (grunt) {
         return processor(JSON.parse(grunt.file.read(filepath)));
       }).reduce(extend, {});
 
-      src = grunt.template.process(multiline(options.hasPreferredLanguage ? function(){/*
+      src = grunt.template.process(multiline(function(){/*
 'use strict';
 
 try {
@@ -96,22 +96,10 @@ angular.module('<%= moduleName %>').config(['$translateProvider', function ($tra
   var translations = <%= translations %>;
   $translateProvider.translations('<%= language %>', translations);
   $translateProvider.translations(translations);
-  $translateProvider.preferredLanguage('<%= language %>');
-}]);
-      */} : function(){/*
-'use strict';
-
-try {
-  angular.module('<%= moduleName %>');
-} catch (e) {
-  angular.module('<%= moduleName %>', ['pascalprecht.translate']);
-}
-
-angular.module('<%= moduleName %>').config(['$translateProvider', function ($translateProvider) {
-  var translations = <%= translations %>;
-  $translateProvider.translations('<%= language %>', translations);
-  $translateProvider.translations(translations);
-}]);
+  if ($translateProvider.preferredLanguage) {
+      $translateProvider.preferredLanguage('<%= language %>');
+  }
+}]).value('preferredLanguage', '<%= language %>');
       */}), {data: {language: language, moduleName: options.moduleName, translations: toSingleQuotes(JSON.stringify(src))}});
 
       src = jb(src, {'indent_size': 2, 'jslint_happy': true}) + '\n';

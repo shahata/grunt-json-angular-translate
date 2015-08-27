@@ -15,6 +15,8 @@ angular.module('wixTranslations').config(['$translateProvider',
     };
     $translateProvider.translations('ru', translations);
     $translateProvider.translations(translations);
-    $translateProvider.preferredLanguage('ru');
+    if ($translateProvider.preferredLanguage) {
+      $translateProvider.preferredLanguage('ru');
+    }
   }
-]);
+]).value('preferredLanguage', 'ru');
