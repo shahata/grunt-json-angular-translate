@@ -84,18 +84,18 @@ module.exports = function (grunt) {
       }).reduce(extend, {});
 
       src = grunt.template.process(multiline(function(){/*
-         'use strict';
+'use strict';
 
-         try {
-         angular.module('<%= moduleName %>');
-         } catch (e) {
-         angular.module('<%= moduleName %>', ['pascalprecht.translate']);
-         }
+try {
+  angular.module('<%= moduleName %>');
+} catch (e) {
+  angular.module('<%= moduleName %>', ['pascalprecht.translate']);
+}
 
-         angular.module('<%= moduleName %>').config(['$translateProvider', function ($translateProvider) {
-            var translations = <%= translations %>;
-            $translateProvider.translations('<%= language %>', translations);
-            $translateProvider.translations(translations);
+angular.module('<%= moduleName %>').config(['$translateProvider', function ($translateProvider) {
+  var translations = <%= translations %>;
+  $translateProvider.translations('<%= language %>', translations);
+  $translateProvider.translations(translations);
 
             if ($translateProvider.preferredLanguage){
                 $translateProvider.preferredLanguage('<%= language %>');
