@@ -98,6 +98,21 @@ module.exports = function (grunt) {
           dest: 'tmp/test5',
           ext: '.js'
         }]
+      },
+      validate_output_files: {
+        options: {
+          moduleName: 'wixTranslations',
+          hasPreferredLanguage: false,
+          jshintValidateOutputFiles: true,
+          jshintrcPath: 'test/.jshintrc'
+        },
+        files: [{
+          expand: true,
+          cwd: 'test/fixtures',
+          src: '*.json',
+          dest: 'tmp/test6',
+          ext: '.js'
+        }]
       }
     },
 
